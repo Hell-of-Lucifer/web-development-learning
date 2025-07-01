@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>clock</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clock - Tailwind + Bootstrap</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Bootstrap CSS CDN -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+
+  <style>
+    .hand {
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform-origin: bottom center;
+      background-color: #000;
+    }
+
+    .hour {
+      width: 6px;
+      height: 60px;
+    }
+
+    .minute {
+      width: 4px;
+      height: 80px;
+    }
+
+    .second {
+      width: 2px;
+      height: 90px;
+      background-color: red;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-5">
+
+  <h1 class="text-2xl font-bold mb-6 text-center">Tailwind + Bootstrap Clock</h1>
+
+  <!-- Analog Clock -->
+  <div class="position-relative rounded-full bg-white shadow-lg border border-gray-300"
+       style="width: 200px; height: 200px;">
+    <div id="hour" class="hand hour"></div>
+    <div id="minute" class="hand minute"></div>
+    <div id="second" class="hand second"></div>
+  </div>
+
+  <!-- Digital Clock -->
+  <div id="digital" class="mt-5 text-xl text-center bg-light p-3 rounded shadow w-60">
+    00:00:00
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const hourHand = document.getElementById("hour");
+    const minuteHand = document.getElementById("minute");
+    const secondHand = document.getElementById("second");
+    const digitalClock = document.getElementById("digital");
+
+    function updateClock() {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+
+      const hourDeg = (hours % 12 + minutes / 60) * 30;
+      const minuteDeg = (minutes + seconds / 60) * 6;
+      const secondDeg = seconds * 6;
+
+      hourHand.style.transform = `translate(-50%) rotate(${hourDeg}deg)`;
+      minuteHand.style.transform = `translate(-50%) rotate(${minuteDeg}deg)`;
+      secondHand.style.transform = `translate(-50%) rotate(${secondDeg}deg)`;
+
+      // Digital time
+      const format = (n) => n.toString().padStart(2, "0");
+      digitalClock.textContent = `${format(hours)}:${format(minutes)}:${format(seconds)}`;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock(); // initial call
+  </script>
+
+</body>
+</html>
+
+</body>
+</html>
